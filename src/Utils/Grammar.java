@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Grammar {
 
@@ -31,13 +32,16 @@ public class Grammar {
         String line;
         for(String nonterminal : grammar.nonterminals){
             grammar.productions.put(nonterminal, new ArrayList<>());
-            System.out.println(nonterminal);
         }
         while (sc.hasNext()){
             line = sc.nextLine();
             String[] parts = line.split("->");
-            String[] elements = parts[1].split("#");
-            grammar.productions.get(parts[0]).add(Arrays.asList(elements));
+            String[] productions = parts[1].split("\\|");
+            for(String production: productions){
+                String[] symbols = production.split("#");
+                grammar.productions.get(parts[0]).add(Arrays.asList(symbols));
+            }
+
         }
         sc.close();
         return grammar;
@@ -52,9 +56,7 @@ public class Grammar {
     }
 
     public String getProductions(){
-        StringBuilder sb = new StringBuilder();
-        productions.keySet().forEach(p -> sb.append(getForProduction(p)).append("\n"));
-        return sb.toString();
+        return productions.keySet().stream().map(this::getForProduction).collect(Collectors.joining("\n"));
     }
 
     public String getForProduction(String nonterminal){
@@ -62,8 +64,8 @@ public class Grammar {
         StringBuilder sb = new StringBuilder();
         sb.append(nonterminal).append("->");
         List<String> aux = new ArrayList<>();
-        productions.forEach(p -> aux.add(p.stream().reduce("", (s,t) -> s+t)));
-        aux.forEach(p -> sb.append(p).append("|"));
+        productions.forEach(p -> aux.add(String.join(" ", p)));
+        sb.append(String.join("|", aux));
         return sb.toString();
     }
 }

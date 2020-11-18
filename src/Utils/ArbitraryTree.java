@@ -22,7 +22,7 @@ public class ArbitraryTree {
         int index = values.size() - 1;
         rightSibling.add(-1);
         leftChild.add(-1);
-        if(parent == ""){
+        if(parent.equals("")){
             return;
         }
         int f = values.indexOf(parent);
