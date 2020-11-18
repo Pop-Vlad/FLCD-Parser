@@ -47,6 +47,18 @@ public class Grammar {
         return grammar;
     }
 
+    public boolean validate(){
+        if (!nonterminals.contains(start)){
+            return false;
+        }
+        for(String key : productions.keySet()){
+            if(!nonterminals.contains(key)){
+                return false;
+            }
+        }
+        return true;
+    }
+
     public List<String> getNonterminals(){
         return this.nonterminals;
     }
