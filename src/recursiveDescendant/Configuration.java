@@ -4,11 +4,29 @@ import Utils.ArbitraryTree;
 import Utils.Pair;
 
 import java.util.List;
+import java.util.Stack;
 
 public class Configuration {
 
     public String state;
     public int position;
-    public ArbitraryTree workingStack;
-    public List<Pair<String, Integer>> inputStack;
+    public Stack<String> workingStack;
+    public Stack<String> inputStack;
+
+    public Configuration(String state, int position, Stack<String> workingStack, Stack<String> inputStack) {
+        this.state = state;
+        this.position = position;
+        this.workingStack = workingStack;
+        this.inputStack = inputStack;
+    }
+
+    @Override
+    public String toString() {
+        return "Configuration{" +
+                "state='" + state + '\'' +
+                ", position=" + position +
+                ", workingStack=" + workingStack +
+                ", inputStack=" + inputStack +
+                '}';
+    }
 }

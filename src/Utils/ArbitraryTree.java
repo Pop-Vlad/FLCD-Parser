@@ -17,43 +17,47 @@ public class ArbitraryTree {
         rightSibling = new ArrayList<>();
     }
 
-    public void add(String node, String parent){
+    public int add(String node, int parent){
         values.add(node);
         int index = values.size() - 1;
         rightSibling.add(-1);
         leftChild.add(-1);
-        if(parent.equals("")){
-            return;
+        if(parent == -1){
+            return index;
         }
-        int f = values.indexOf(parent);
 
-        if(leftChild.get(f) == -1){
-            leftChild.set(f, index);
+        if(leftChild.get(parent) == -1){
+            leftChild.set(parent, index);
         }
         else {
-            int current = leftChild.get(f);
+            int current = leftChild.get(parent);
+            System.out.println(current);
             int prev = -1;
             while (current != -1){
-                current = rightSibling.get(current);
                 prev = current;
+                current = rightSibling.get(current);
             }
             rightSibling.set(prev, index);
         }
-        father.add(f);
-
+        father.add(parent);
+        return index;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb= new StringBuilder();
-        for(int i=0;i<values.size();i++){
-            sb.append(values.get(i)).append("\n");
-            int current = leftChild.get(i);
-            sb.append("\t");
-            while (current != -1){
-                sb.append(values.get(current)).append(" ");
-            }
-            sb.append("\n");
+        return subtree(0);
+    }
+
+    private String subtree(int node){
+        StringBuilder sb = new StringBuilder();
+        int child = leftChild.get(node);
+        sb.append(values.get(node));
+        if(child == -1){
+            return sb.toString();
+        }
+        while (child != -1){
+            sb.append(subtree(child));
+            child = rightSibling.get(child);
         }
         return sb.toString();
     }

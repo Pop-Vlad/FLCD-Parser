@@ -1,5 +1,5 @@
 S
-a b c
+a b c epsilon
 S
 S->a#S#b#S
 S->a#S|c
