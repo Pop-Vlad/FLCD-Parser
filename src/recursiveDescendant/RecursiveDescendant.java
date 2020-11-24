@@ -10,6 +10,7 @@ import java.util.Stack;
 public class RecursiveDescendant {
 
     public Configuration configuration;
+    public Configuration previous;
     public Grammar grammar;
 
     public RecursiveDescendant(Grammar grammar) {
@@ -23,7 +24,11 @@ public class RecursiveDescendant {
     public List<String> run(List<String> w) {
         while (!configuration.state.equals("f") && !configuration.state.equals("e")) {
             //Thread.sleep(100);
-            System.out.println(configuration);
+            //System.out.println(configuration);
+            if(configuration.workingStack.isEmpty() || configuration.inputStack.isEmpty()){
+                System.out.println("Sequence rejected");
+                return new ArrayList<>();
+            }
             String inputTop = configuration.inputStack.peek();
             String workingTop = configuration.workingStack.peek();
             if (configuration.position == w.size() + 1 && configuration.inputStack.peek().equals("epsilon")) {

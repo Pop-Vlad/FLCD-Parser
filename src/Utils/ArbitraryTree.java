@@ -77,6 +77,9 @@ public class ArbitraryTree {
 //        sb.append(this.rightSibling).append("\n");
 //        sb.append(subtree(0));
 //        return sb.toString();
+        if(this.values.size() == 0){
+            return "";
+        }
         return subtree(0);
     }
 
@@ -88,17 +91,17 @@ public class ArbitraryTree {
         while (child != -1) {
             String subtreeString = subtree(child);
             String shiftedSubtree = Arrays.stream(subtreeString.split("\n")).map(l -> "\t" + l).reduce("", (s, t) -> s + t + "\n");
-            String linkedSubtree = "---" + shiftedSubtree.substring(1);
+            String linkedSubtree = " -- " + shiftedSubtree.substring(1);
             subtrees.add(linkedSubtree);
             child = rightSibling.get(child);
         }
         List<String> B = new ArrayList<>();
         if (subtrees.size() > 0) {
             for (String a : subtrees.subList(0, subtrees.size() - 1)) {
-                String b = Arrays.stream(a.split("\n")).map(l -> "\t|" + l.substring(1)).reduce("", (s, t) -> s + t + "\n");
+                String b = Arrays.stream(a.split("\n")).map(l -> " \t|" + l.substring(1)).reduce("", (s, t) -> s + t + "\n");
                 B.add(b);
             }
-            B.add("\t\\" + subtrees.get(subtrees.size() - 1).substring(1));
+            B.add(" \t\\" + subtrees.get(subtrees.size() - 1).substring(1));
         }
         B.forEach(sb::append);
         return sb.toString();

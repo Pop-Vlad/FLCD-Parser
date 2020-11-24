@@ -21,7 +21,7 @@ public class Grammar {
         start = "";
     }
 
-    public static Grammar fromFile(String fileName) throws FileNotFoundException {
+    public static Grammar fromFile(String fileName) throws Exception {
         Grammar grammar = new Grammar();
         Scanner sc = new Scanner(new BufferedReader(new FileReader(new File(fileName))));
         String nonterminalsLine = sc.nextLine();
@@ -45,6 +45,9 @@ public class Grammar {
         }
         sc.close();
         grammar.terminals.add("epsilon");
+        if(!grammar.validate()){
+            throw new Exception("Invalid grammar");
+        }
         return grammar;
     }
 
@@ -55,6 +58,16 @@ public class Grammar {
         for (String key : productions.keySet()) {
             if (!nonterminals.contains(key)) {
                 return false;
+            }
+        }
+        for (List<List<String>> rhs: productions.values()){
+            System.out.println(rhs);
+            for (List<String> values: rhs){
+                for (String value: values){
+                    if(!(nonterminals.contains(value) || terminals.contains(value))){
+                        return false;
+                    }
+                }
             }
         }
         return true;
