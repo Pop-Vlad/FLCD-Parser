@@ -1,9 +1,5 @@
 package recursiveDescendant;
 
-import Utils.ArbitraryTree;
-import Utils.Pair;
-
-import java.util.List;
 import java.util.Stack;
 
 public class Configuration {

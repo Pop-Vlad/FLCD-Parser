@@ -2,15 +2,15 @@ package recursiveDescendant;
 
 import Utils.Grammar;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Stack;
 
 public class RecursiveDescendant {
 
     public Configuration configuration;
     public Grammar grammar;
-
-    //expand, advance, momentary insucces, back, another try, succes
-
 
     public RecursiveDescendant(Grammar grammar) {
         this.grammar = grammar;
@@ -20,44 +20,45 @@ public class RecursiveDescendant {
         configuration.inputStack.push(grammar.start);
     }
 
-    public List<String> run(List<String> w) throws InterruptedException {
+    public List<String> run(List<String> w) {
         while (!configuration.state.equals("f") && !configuration.state.equals("e")) {
+            //Thread.sleep(100);
+            System.out.println(configuration);
             String inputTop = configuration.inputStack.peek();
-            String workingTop =configuration.workingStack.peek();
+            String workingTop = configuration.workingStack.peek();
             if (configuration.position == w.size() + 1 && configuration.inputStack.peek().equals("epsilon")) {
+                //System.out.println("success");
                 success();
             }
             if (configuration.state.equals("q")) {
                 if (grammar.nonterminals.contains(inputTop)) {
-                    System.out.println("expand");
+                    //System.out.println("expand");
                     expand();
                 } else if (grammar.terminals.contains(inputTop) && w.size() >= configuration.position && w.get(configuration.position - 1).equals(inputTop)) {
-                    System.out.println("advance");
+                    //System.out.println("advance");
                     advance();
                 } else if (grammar.terminals.contains(inputTop) && (w.size() < configuration.position || !w.get(configuration.position - 1).equals(inputTop))) {
-                    System.out.println("mom ins");
+                    //System.out.println("momentary insuccess");
                     momentaryInsuccess();
                 }
             } else if (configuration.state.equals("b")) {
                 if (grammar.nonterminals.contains(workingTop.split("#")[0])) {
-                    System.out.println("another try");
+                    //System.out.println("another try");
                     anotherTry();
                 } else if (grammar.terminals.contains(workingTop)) {
-                    System.out.println("back");
+                    //System.out.println("back");
                     back();
                 }
             }
         }
         if (configuration.state.equals("f")) {
             System.out.println("Sequence accepted");
-            System.out.println(configuration.workingStack);
-            return  configuration.workingStack;
+            return configuration.workingStack;
         } else {
             System.out.println("Sequence rejected");
             return new ArrayList<>();
         }
     }
-
 
     public void expand() {
         String nonterminal = configuration.inputStack.pop();
@@ -85,14 +86,6 @@ public class RecursiveDescendant {
     public void anotherTry() {
         String topWorking = configuration.workingStack.peek();
         List<String> gamma = grammar.productions.get(topWorking.split("#")[0]).get(Integer.parseInt(topWorking.split("#")[1]) - 1);
-//        boolean ok = true;
-//        int inputStackSize = configuration.inputStack.size();
-//        for (int i = 0; i < gamma.size(); i++) {
-//            if (!configuration.inputStack.get(inputStackSize - 1 - i).equals(gamma.get(i))) {
-//                ok = false;
-//                break;
-//            }
-//        }
         if (Integer.parseInt(topWorking.split("#")[1]) != grammar.productions.get(topWorking.split("#")[0]).size()) {
             configuration.state = "q";
             gamma.forEach(s -> configuration.inputStack.pop());

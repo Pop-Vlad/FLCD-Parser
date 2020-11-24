@@ -27,51 +27,52 @@ public class Grammar {
         String nonterminalsLine = sc.nextLine();
         grammar.nonterminals = Arrays.asList(nonterminalsLine.split(" "));
         String terminalsLine = sc.nextLine();
-        grammar.terminals = Arrays.asList(terminalsLine.split(" "));
+        grammar.terminals = new ArrayList<>(Arrays.asList(terminalsLine.split(" ")));
         grammar.start = sc.nextLine();
         String line;
-        for(String nonterminal : grammar.nonterminals){
+        for (String nonterminal : grammar.nonterminals) {
             grammar.productions.put(nonterminal, new ArrayList<>());
         }
-        while (sc.hasNext()){
+        while (sc.hasNext()) {
             line = sc.nextLine();
             String[] parts = line.split("->");
             String[] productions = parts[1].split("\\|");
-            for(String production: productions){
+            for (String production : productions) {
                 String[] symbols = production.split("#");
                 grammar.productions.get(parts[0]).add(Arrays.asList(symbols));
             }
 
         }
         sc.close();
+        grammar.terminals.add("epsilon");
         return grammar;
     }
 
-    public boolean validate(){
-        if (!nonterminals.contains(start)){
+    public boolean validate() {
+        if (!nonterminals.contains(start)) {
             return false;
         }
-        for(String key : productions.keySet()){
-            if(!nonterminals.contains(key)){
+        for (String key : productions.keySet()) {
+            if (!nonterminals.contains(key)) {
                 return false;
             }
         }
         return true;
     }
 
-    public List<String> getNonterminals(){
+    public List<String> getNonterminals() {
         return this.nonterminals;
     }
 
-    public List<String> getTerminals(){
+    public List<String> getTerminals() {
         return this.terminals;
     }
 
-    public String getProductions(){
+    public String getProductions() {
         return productions.keySet().stream().map(this::getForProduction).collect(Collectors.joining("\n"));
     }
 
-    public String getForProduction(String nonterminal){
+    public String getForProduction(String nonterminal) {
         List<List<String>> productions = this.productions.get(nonterminal);
         StringBuilder sb = new StringBuilder();
         sb.append(nonterminal).append("->");
