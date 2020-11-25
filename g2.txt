@@ -23,6 +23,6 @@ while_stmt->while#(#condition#)#struct_stmt
 condition->expression#relation#expression
 relation->==|<|>|<=|>=|!=
 identifier->pif_symbol
-array_elem->identifier#[#arithmetic_operand#]
+array_elem->identifier#[#expression#]
 constant->pif_symbol
 pif_symbol->0|1

@@ -10,7 +10,6 @@ import java.util.Stack;
 public class RecursiveDescendant {
 
     public Configuration configuration;
-    public Configuration previous;
     public Grammar grammar;
 
     public RecursiveDescendant(Grammar grammar) {
@@ -47,7 +46,7 @@ public class RecursiveDescendant {
                     momentaryInsuccess();
                 }
             } else if (configuration.state.equals("b")) {
-                if (grammar.nonterminals.contains(workingTop.split("#")[0])) {
+                if (!grammar.terminals.contains(workingTop)) {
                     //System.out.println("another try");
                     anotherTry();
                 } else if (grammar.terminals.contains(workingTop)) {
@@ -57,10 +56,10 @@ public class RecursiveDescendant {
             }
         }
         if (configuration.state.equals("f")) {
-            System.out.println("Sequence accepted");
+            //System.out.println("Sequence accepted");
             return configuration.workingStack;
         } else {
-            System.out.println("Sequence rejected");
+            //System.out.println("Sequence rejected");
             return new ArrayList<>();
         }
     }
