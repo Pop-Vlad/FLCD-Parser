@@ -2,7 +2,7 @@ package Utils;
 
 import java.util.*;
 
-public class ArbitraryTree {
+public class ParserOutput {
 
     Grammar grammar;
     Map<String, Integer> nrChildren;
@@ -12,7 +12,7 @@ public class ArbitraryTree {
     List<Integer> leftChild;
     List<Integer> rightSibling;
 
-    public ArbitraryTree(Grammar grammar) {
+    public ParserOutput(Grammar grammar) {
         this.grammar = grammar;
         values = new ArrayList<>();
         father = new ArrayList<>();
@@ -70,17 +70,21 @@ public class ArbitraryTree {
 
     @Override
     public String toString() {
-//        StringBuilder sb = new StringBuilder();
-//        sb.append(this.values).append("\n");
-//        sb.append(this.father).append("\n");
-//        sb.append(this.leftChild).append("\n");
-//        sb.append(this.rightSibling).append("\n");
-//        sb.append(subtree(0));
-//        return sb.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Parser output:\n");
+        sb.append("Values: ");
+        sb.append(this.values).append("\n");
+        sb.append("Father: ");
+        sb.append(this.father).append("\n");
+        sb.append("Left child: ");
+        sb.append(this.leftChild).append("\n");
+        sb.append("Right sibling: ");
+        sb.append(this.rightSibling).append("\n");
         if(this.values.size() == 0){
-            return "";
+            return sb.toString();
         }
-        return subtree(0);
+        sb.append(subtree(0));
+        return sb.toString();
     }
 
     private String subtree(int node) {

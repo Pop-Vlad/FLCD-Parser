@@ -10,7 +10,6 @@ import java.util.Stack;
 public class RecursiveDescendant {
 
     public Configuration configuration;
-    public Configuration previous;
     public Grammar grammar;
 
     public RecursiveDescendant(Grammar grammar) {
@@ -53,10 +52,10 @@ public class RecursiveDescendant {
             }
         }
         if (configuration.state.equals("f")) {
-            System.out.println("Sequence accepted");
+            //System.out.println("Sequence accepted");
             return configuration.workingStack;
         } else {
-            System.out.println("Sequence rejected");
+            //System.out.println("Sequence rejected");
             return new ArrayList<>();
         }
     }

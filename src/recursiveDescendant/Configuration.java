@@ -20,9 +20,9 @@ public class Configuration {
     public String toString() {
         return "Configuration{" +
                 "state='" + state + '\'' +
-                ", position=" + position +
-                ", workingStack=" + workingStack +
-                ", inputStack=" + inputStack +
+                ", pos=" + position +
+                ", working=" + workingStack +
+                ", input=" + inputStack +
                 '}';
     }
 }
