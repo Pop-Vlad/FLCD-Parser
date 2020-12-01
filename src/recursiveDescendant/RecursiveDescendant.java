@@ -25,10 +25,6 @@ public class RecursiveDescendant {
         while (!configuration.state.equals("f") && !configuration.state.equals("e")) {
             //Thread.sleep(100);
             //System.out.println(configuration);
-            if(configuration.workingStack.isEmpty() || configuration.inputStack.isEmpty()){
-                System.out.println("Sequence rejected");
-                return new ArrayList<>();
-            }
             String inputTop = configuration.inputStack.peek();
             String workingTop = configuration.workingStack.peek();
             if (configuration.position == w.size() + 1 && configuration.inputStack.peek().equals("epsilon")) {
@@ -39,18 +35,18 @@ public class RecursiveDescendant {
                 if (grammar.nonterminals.contains(inputTop)) {
                     //System.out.println("expand");
                     expand();
-                } else if (grammar.terminals.contains(inputTop) && w.size() >= configuration.position && w.get(configuration.position - 1).equals(inputTop)) {
+                } else if (w.size() >= configuration.position && w.get(configuration.position - 1).equals(inputTop)) {
                     //System.out.println("advance");
                     advance();
-                } else if (grammar.terminals.contains(inputTop) && (w.size() < configuration.position || !w.get(configuration.position - 1).equals(inputTop))) {
+                } else if ((w.size() < configuration.position || !w.get(configuration.position - 1).equals(inputTop))) {
                     //System.out.println("momentary insuccess");
                     momentaryInsuccess();
                 }
             } else if (configuration.state.equals("b")) {
-                if (grammar.nonterminals.contains(workingTop.split("#")[0])) {
+                if (!grammar.terminals.contains(workingTop)) {
                     //System.out.println("another try");
                     anotherTry();
-                } else if (grammar.terminals.contains(workingTop)) {
+                } else {
                     //System.out.println("back");
                     back();
                 }
@@ -99,16 +95,16 @@ public class RecursiveDescendant {
             List<String> gamma2 = new ArrayList<>(grammar.productions.get(topWorking.split("#")[0]).get(Integer.parseInt(topWorking.split("#")[1])));
             Collections.reverse(gamma2);
             gamma2.forEach(s -> configuration.inputStack.push(s));
+
+        } else if (configuration.position == 1 && topWorking.split("#")[0].equals(grammar.start)) {
+            configuration.state = "e";
         } else {
-            if (configuration.position == 1 && topWorking.equals(grammar.start)) {
-                configuration.state = "e";
-            } else {
-                configuration.workingStack.pop();
-                gamma.forEach(s -> configuration.inputStack.pop());
-                configuration.inputStack.push(topWorking.split("#")[0]);
-            }
+            configuration.workingStack.pop();
+            gamma.forEach(s -> configuration.inputStack.pop());
+            configuration.inputStack.push(topWorking.split("#")[0]);
         }
     }
+
 
     public void success() {
         configuration.state = "f";

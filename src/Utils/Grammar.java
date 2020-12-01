@@ -44,7 +44,6 @@ public class Grammar {
 
         }
         sc.close();
-        grammar.terminals.add("epsilon");
         if(!grammar.validate()){
             throw new Exception("Invalid grammar");
         }
