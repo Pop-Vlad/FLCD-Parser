@@ -1,4 +1,4 @@
-program stmt_list stmt simple_stmt struct_stmt assign_stmt decl_stmt io_stmt identifier constant expression array_elem term factor arithmetic_operand decl_stmt type simple_type comp_type read_operand write_operand if_stmt while_stmt condition relation pif_symbol
+program stmt_list stmt simple_stmt struct_stmt assign_stmt decl_stmt io_stmt identifier constant expression array_elem term factor arithmetic_operand decl_stmt type simple_type comp_type read_operand write_operand if_stmt while_stmt condition relation
 := - + = * / % ( ) [ ] [] read write if else while int char { } ; == < > <= >= != 0 1
 program
 program->stmt_list
@@ -22,7 +22,6 @@ if_stmt->if#(#condition#)#struct_stmt|if#(#condition#)#struct_stmt#else#stmt
 while_stmt->while#(#condition#)#struct_stmt
 condition->expression#relation#expression
 relation->==|<|>|<=|>=|!=
-identifier->pif_symbol
+identifier->0
 array_elem->identifier#[#expression#]
-constant->pif_symbol
-pif_symbol->0|1
+constant->1

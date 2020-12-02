@@ -12,22 +12,19 @@ public class Main2 {
     public static void main(String[] args) {
         try {
             Grammar grammar = Grammar.fromFile("g2.txt");
+            System.out.println("Grammar:");
             printGrammar(grammar);
 
-            RecursiveDescendant algoritmh = new RecursiveDescendant(grammar);
+            RecursiveDescendant algorithm = new RecursiveDescendant(grammar);
+            List<String> w = sequenceFromPIF("PIF.out");
+            System.out.println("Sequence: " + w);
 
-            Scanner scanner = new Scanner(new BufferedReader(new FileReader(new File("g2w.txt"))));
-            List<String> w = new ArrayList<>();
-            while (scanner.hasNext()) {
-                w.add(scanner.nextLine());
-            }
-
-            List<String> productionString = algoritmh.run(w);
+            List<String> productionString = algorithm.run(w);
             ParserOutput parserOutput = new ParserOutput(grammar);
             parserOutput.addProductionString(productionString);
 
             System.out.println(parserOutput);
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File("g2out.txt")));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File("out2.txt")));
             bufferedWriter.write(parserOutput.toString());
             bufferedWriter.close();
         } catch (Exception e) {
@@ -35,12 +32,22 @@ public class Main2 {
         }
     }
 
+    public static List<String> sequenceFromPIF(String pifFileName) throws FileNotFoundException {
+        Scanner scanner = new Scanner(new BufferedReader(new FileReader(new File(pifFileName))));
+        List<String> w = new ArrayList<>();
+        while (scanner.hasNext()) {
+            String line = scanner.nextLine();
+            w.add(line.substring(line.indexOf('(') + 1, line.indexOf(',')));
+        }
+        return w;
+    }
+
     public static void printGrammar(Grammar grammar) {
         System.out.println("Nonterminals:" + grammar.getNonterminals());
         System.out.println("Terminals:" + grammar.getTerminals());
         System.out.println("Productions:\n" + grammar.getProductions());
-        System.out.println("");
+        System.out.println("Production for expression:");
         System.out.println(grammar.getForProduction("expression"));
-        System.out.println("");
+        System.out.println();
     }
 }

@@ -59,7 +59,6 @@ public class Grammar {
             }
         }
         for (List<List<String>> rhs: productions.values()){
-            System.out.println(rhs);
             for (List<String> values: rhs){
                 for (String value: values){
                     if(!(nonterminals.contains(value) || terminals.contains(value))){

@@ -71,7 +71,7 @@ public class ParserOutput {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Parser output:\n");
+        sb.append("Parser output:\n\n");
         sb.append("Values: ");
         sb.append(this.values).append("\n");
         sb.append("Father: ");
@@ -79,7 +79,7 @@ public class ParserOutput {
         sb.append("Left child: ");
         sb.append(this.leftChild).append("\n");
         sb.append("Right sibling: ");
-        sb.append(this.rightSibling).append("\n");
+        sb.append(this.rightSibling).append("\n\n");
         if(this.values.size() == 0){
             return sb.toString();
         }
