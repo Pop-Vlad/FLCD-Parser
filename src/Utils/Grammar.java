@@ -1,7 +1,6 @@
 package Utils;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -22,7 +21,7 @@ public class Grammar {
 
     public static Grammar fromFile(String fileName) throws Exception {
         Grammar grammar = new Grammar();
-        Scanner sc = new Scanner(new BufferedReader(new FileReader(new File(fileName))));
+        Scanner sc = new Scanner(new BufferedReader(new FileReader(fileName)));
         String nonterminalsLine = sc.nextLine();
         grammar.nonterminals = Arrays.asList(nonterminalsLine.split(" "));
         String terminalsLine = sc.nextLine();

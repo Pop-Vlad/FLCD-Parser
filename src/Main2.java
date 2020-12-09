@@ -24,7 +24,7 @@ public class Main2 {
             parserOutput.addProductionString(productionString);
 
             System.out.println(parserOutput);
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File("out2.txt")));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("out2.txt"));
             bufferedWriter.write(parserOutput.toString());
             bufferedWriter.close();
         } catch (Exception e) {
@@ -33,7 +33,7 @@ public class Main2 {
     }
 
     public static List<String> sequenceFromPIF(String pifFileName) throws FileNotFoundException {
-        Scanner scanner = new Scanner(new BufferedReader(new FileReader(new File(pifFileName))));
+        Scanner scanner = new Scanner(new BufferedReader(new FileReader(pifFileName)));
         List<String> w = new ArrayList<>();
         while (scanner.hasNext()) {
             String line = scanner.nextLine();

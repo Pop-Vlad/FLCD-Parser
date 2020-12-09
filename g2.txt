@@ -18,7 +18,7 @@ io_stmt->read#(#read_operand#)|write#(#write_operand#)
 read_operand->identifier|array_elem
 write_operand->identifier|array_elem|constant
 struct_stmt->{#stmt_list#}|if_stmt|while_stmt
-if_stmt->if#(#condition#)#struct_stmt|if#(#condition#)#struct_stmt#else#stmt
+if_stmt->if#(#condition#)#struct_stmt|if#(#condition#)#struct_stmt#else#struct_stmt
 while_stmt->while#(#condition#)#struct_stmt
 condition->expression#relation#expression
 relation->==|<|>|<=|>=|!=

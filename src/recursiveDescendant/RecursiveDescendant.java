@@ -22,7 +22,6 @@ public class RecursiveDescendant {
 
     public List<String> run(List<String> w) throws Exception {
         while (!configuration.state.equals("f") && !configuration.state.equals("e")) {
-            //Thread.sleep(100);
             //System.out.println(configuration);
             String inputTop = configuration.inputStack.peek();
             String workingTop = configuration.workingStack.peek();

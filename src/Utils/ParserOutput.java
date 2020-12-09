@@ -89,7 +89,11 @@ public class ParserOutput {
 
     private String subtree(int node) {
         StringBuilder sb = new StringBuilder();
-        sb.append(values.get(node)).append("\n");
+        String value = values.get(node);
+        if(value.contains("#")){
+            value = value.split("#")[0];
+        }
+        sb.append(value).append("\n");
         List<String> subtrees = new ArrayList<>();
         int child = leftChild.get(node);
         while (child != -1) {

@@ -24,7 +24,7 @@ public class Main1 {
             parserOutput.addProductionString(productionString);
 
             System.out.println(parserOutput);
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File("out1.txt")));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("out1.txt"));
             bufferedWriter.write(parserOutput.toString());
             bufferedWriter.close();
         } catch (Exception e) {
@@ -33,7 +33,7 @@ public class Main1 {
     }
 
     public static List<String> sequenceFromFile(String fileName) throws FileNotFoundException {
-        Scanner scanner = new Scanner(new BufferedReader(new FileReader(new File(fileName))));
+        Scanner scanner = new Scanner(new BufferedReader(new FileReader(fileName)));
         return Arrays.asList(scanner.nextLine().split(" "));
     }
 
