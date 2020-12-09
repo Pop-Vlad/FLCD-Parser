@@ -20,7 +20,7 @@ public class RecursiveDescendant {
         configuration.inputStack.push(grammar.start);
     }
 
-    public List<String> run(List<String> w) {
+    public List<String> run(List<String> w) throws Exception {
         while (!configuration.state.equals("f") && !configuration.state.equals("e")) {
             //Thread.sleep(100);
             //System.out.println(configuration);
@@ -55,8 +55,7 @@ public class RecursiveDescendant {
             System.out.println("Sequence accepted\n");
             return configuration.workingStack;
         } else {
-            System.out.println("Sequence rejected\n");
-            return new ArrayList<>();
+            throw new Exception("Syntax Error");
         }
     }
 
